@@ -1,0 +1,25 @@
+# Your data is yours. None of it belongs in a public fork.
+accounts/*
+!accounts/_template.md
+!accounts/example-acme.md
+
+data/crm-export/*
+!data/crm-export/README.md
+!data/crm-export/.gitkeep
+
+log/*.tsv
+log/sessions/*
+!log/sessions/.gitkeep
+
+# Credentials
+mcp-config/mcp-servers.local.json
+.env
+*.pem
+*.key
+
+# Noise
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+node_modules/

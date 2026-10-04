@@ -1,0 +1,11 @@
+{
+  "name": "swarmselling",
+  "owner": { "name": "Shantha Kumar Sarrao" },
+  "plugins": [
+    {
+      "name": "swarmselling",
+      "source": "./",
+      "description": "A specification layer for enterprise selling. Your ICP, disqualifiers, pains, competitors and lost-deal patterns as dated, evidenced files that both you and your agents read."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+# A seatbelt, not a policy. See SECURITY.md.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+
+  - repo: local
+    hooks:
+      - id: block-account-data
+        name: block committing populated account files
+        entry: bash -c 'for f in "$@"; do case "$f" in accounts/_template.md|accounts/example-acme.md) ;; accounts/*) echo "BLOCKED: $f — account data is private (SECURITY.md)"; exit 1 ;; esac; done' --
+        language: system
+        files: ^accounts/
+
+      - id: block-crm-export
+        name: block committing CRM exports
+        entry: bash -c 'echo "BLOCKED: CRM export data is private (SECURITY.md)"; exit 1'
+        language: system
+        files: ^data/crm-export/.*\.(csv|xlsx|json)$

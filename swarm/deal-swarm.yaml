@@ -1,0 +1,81 @@
+# Deal swarm — a live account with an open opportunity.
+#
+# Agents are a dependency graph, not a list. Agents inside a wave run in
+# parallel; a wave starts only when the previous one completes.
+
+name: deal-swarm
+description: Full stack for a live deal, adversarial round included.
+applies_to: [tier-1, tier-2]
+
+budget:
+  max_spend_usd: 5.00        # per account, per run
+  on_exceed: cancel_remaining
+
+waves:
+
+  - wave: 1
+    name: identity
+    agents: [identity-resolver]
+
+  - wave: 2
+    name: research
+    parallel: true
+    agents:
+      - account-analysis      # public companies
+      - private-company       # private — one or the other, not both
+      - industry-analysis
+      - competitive-intel
+      - market-perception    # what the buyer already believes
+      - lead-analysis
+
+  - wave: 3
+    name: thesis
+    agents: [pov-finder]
+
+  # The decision this file exists to encode.
+  #
+  # The adversarial round runs BEFORE drafting, not after. If the case loses
+  # in simulation, the fix is the argument — not the subject line. Polishing a
+  # message built on a case that already failed is wasted work, and it is what
+  # most sales tooling does.
+  - wave: 4
+    name: adversarial
+    sequential: true
+    agents:
+      - competitor-rep
+      - buyer-adjudicator     # receives both cases blind, order randomised
+      - buying-committee      # does the argument survive being relayed?
+      - gap-analysis
+    on_case_lost: halt        # report and stop. Do not proceed to drafting.
+
+  - wave: 5
+    name: draft
+    agents: [email-draft, call-script, deck-build]
+    gate: tier_and_rubric
+
+  - wave: 6
+    name: critique
+    sequential: true
+    agents:
+      - buyer-persona         # sees the draft ONLY
+      - persona-critique
+      - message-rewrite
+    max_iterations: 2
+
+  - wave: 7
+    name: check
+    agents: [quality-gate, signal-dedupe]
+
+  # Internal coordination. Gated on a different axis: not customer harm, but
+  # colleagues' time. Caps in spec/boundaries.md.
+  - wave: 8
+    name: internal
+    parallel: true
+    agents: [deal-desk, legal-review, solutions-consult, product-liaison]
+    gate: human_submits
+    precondition: internal_cap_not_reached
+
+  - wave: 9
+    name: human
+    agents: []
+    note: Nothing in this repo can send. A human sends.
