@@ -2,10 +2,18 @@
   "name": "swarmselling",
   "version": "0.1.0",
   "description": "Version-controlled sales judgment that agents read. A specification layer for enterprise selling, with an adversarial round and agents that argue against the spec.",
-  "author": { "name": "Shantha Kumar Sarrao" },
+  "author": {
+    "name": "Shantha Kumar Sarrao"
+  },
   "license": "MIT",
   "homepage": "https://swarmselling.com",
-  "keywords": ["swarm-selling", "gtm", "sales", "enterprise", "specification", "agents"],
-  "commands": "./commands",
-  "agents": "./agents"
+  "keywords": [
+    "swarm-selling",
+    "gtm",
+    "sales",
+    "enterprise",
+    "specification",
+    "agents"
+  ],
+  "repository": "https://github.com/shanthasarrao-ctrl/Swarm-Selling"
 }

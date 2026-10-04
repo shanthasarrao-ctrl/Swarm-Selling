@@ -1,6 +1,9 @@
 {
   "name": "swarmselling",
-  "owner": { "name": "Shantha Kumar Sarrao" },
+  "owner": {
+    "name": "Shantha Kumar Sarrao"
+  },
+  "description": "Swarm Selling: a specification layer for enterprise selling. Agents read your ICP, disqualifiers, pains, competitors and lost-deal patterns as dated, evidenced files.",
   "plugins": [
     {
       "name": "swarmselling",
